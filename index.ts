@@ -1,7 +1,17 @@
-let helloWorld = {
-  init: () => {
-    return 'hello world'
+class Observable {
+  static create(fn: Function) {
+    fn()
   }
+  subscribe(){}
 }
 
-export default helloWorld
+class Subject {
+  subscribe(){}
+}
+
+let Rx = {
+  Observable,
+  Subject,
+}
+
+export default Rx
