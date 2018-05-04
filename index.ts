@@ -3,19 +3,23 @@ class Observable {
   static create(fn: Function) {
     var observers:any = []
     var done = false
-    var intentObj = {
-      next: () => {console.log('next')},
-      complete: () => {delete intentObj.next},
+    // 因为调用的时候,observalble.subscribe的参数可以不是对象，而是直接的（next）函数，所以这里构造一个内部对象
+    var internal = {
+      next: () => {},
+      complete: () => {delete internal.next},
       error: () => {}
     }
     return {
       subscribe: function(obj: any){
         if (typeof obj === 'function') {
-          intentObj.next = obj
-          fn(intentObj)
-          return
+          internal.next = obj
+          return {
+            unsubscribe: fn(internal).unsubscribe
+          }
         }
-        fn(obj)
+        return {
+          unsubscribe: fn(obj).unsubscribe
+        }
       }
     }
   }
@@ -27,7 +31,7 @@ class Subject {
 
 let Rx = {
   Observable,
-  Subject,
+  Subject
 }
 
 export default Rx

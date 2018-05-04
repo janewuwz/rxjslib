@@ -1,6 +1,7 @@
 import 'mocha';
 import Rx from './index';
 import { expect } from 'chai';
+import interval from './interval'
 
 // case 1
 // VM496:13 got value 1
@@ -31,17 +32,46 @@ import { expect } from 'chai';
 
 // case 2
 // complete 机制
-var observable = Rx.Observable.create(function subscribe(observer: any) {
-  try {
-    observer.next(1);
-    observer.next(2);
-    observer.next(3);
-    observer.complete();
-    observer.next(4);
-  } catch (err) {
-    observer.error(err); // 如果捕获到异常会发送一个错误
-  }
-});
+// var observable = Rx.Observable.create(function subscribe(observer: any) {
+//   try {
+//     observer.next(1);
+//     observer.next(2);
+//     observer.next(3);
+//     observer.complete();
+//     observer.next(4);
+//   } catch (err) {
+//     observer.error(err); // 如果捕获到异常会发送一个错误
+//   }
+// });
 
-observable.subscribe((x:any) => console.log(x));
+// observable.subscribe((x:any) => console.log(x));
+
+
+
+// case 3
+// unsubscribe
+// function subscribe(observer: any) {
+//   var intervalID = setInterval(() => {
+//     observer.next('hi');
+//   }, 1000);
+
+//   return function unsubscribe() {
+//     clearInterval(intervalID);
+//   };
+// }
+
+// var unsubscribe = subscribe({next: (x : any) => console.log(x)});
+
+// setTimeout(unsubscribe, 5000)
+
+
+
+
+// case 4
+// interval
+
+var observable = interval(1000);
+var subscription = observable.subscribe((x: any) => console.log(x))
+
+setTimeout(subscription.unsubscribe, 8000)
 
