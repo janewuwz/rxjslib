@@ -9,20 +9,39 @@ import { expect } from 'chai';
 // undefined
 // VM496:13 got value 4
 // VM496:15 done
-var observable = Rx.Observable.create(function (observer: any) {
-  observer.next(1);
-  observer.next(2);
-  observer.next(3);
-  setTimeout(() => {
-    observer.next(4);
+// var observable = Rx.Observable.create(function (observer: any) {
+//   observer.next(1);
+//   observer.next(2);
+//   observer.next(3);
+//   setTimeout(() => {
+//     observer.next(4);
+//     observer.complete();
+//   }, 1000);
+// });
+// console.log('just before subscribe');
+// observable.subscribe({
+//   next: (x: any) => console.log('got value ' + x),
+//   error: (err: any) => console.error('something wrong occurred: ' + err),
+//   complete: () => console.log('done'),
+// });
+// console.log('just after subscribe');
+
+
+
+
+// case 2
+// complete 机制
+var observable = Rx.Observable.create(function subscribe(observer: any) {
+  try {
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
     observer.complete();
-  }, 1000);
+    observer.next(4);
+  } catch (err) {
+    observer.error(err); // 如果捕获到异常会发送一个错误
+  }
 });
-console.log('just before subscribe');
-observable.subscribe({
-  next: (x: any) => console.log('got value ' + x),
-  error: (err: any) => console.error('something wrong occurred: ' + err),
-  complete: () => console.log('done'),
-});
-console.log('just after subscribe');
+
+observable.subscribe((x:any) => console.log(x));
 
