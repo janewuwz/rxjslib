@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./index.js ",
-    "build": "tsc -p .",
-    "dev": "tsc -p . --outDir test && node test/test.js"
+    "test": "tsc -p . --outDir test && mocha test/test.js",
+    "dev": "tsc -p . --outDir test && node test/dev.js"
   },
   "repository": {
     "type": "git",

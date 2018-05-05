@@ -18,11 +18,11 @@ var Observable = /** @class */ (function () {
                 if (typeof obj === 'function') {
                     internal.next = obj;
                     return {
-                        unsubscribe: fn(internal).unsubscribe
+                        unsubscribe: fn(internal) && fn(internal).unsubscribe
                     };
                 }
                 return {
-                    unsubscribe: fn(obj).unsubscribe
+                    unsubscribe: fn(obj) && fn(obj).unsubscribe
                 };
             }
         };
