@@ -92,10 +92,10 @@ describe('interval', function () {
             next: function (x) { return chai_1.expect(x).to.equal(expected.shift()); },
             error: function () { return done('error should not be called'); },
         });
-        this.timeout(4000);
+        this.timeout(3000);
         setTimeout(function () {
             subscription.unsubscribe();
             done();
-        }, 3000);
+        }, 2500);
     });
 });
