@@ -62,6 +62,7 @@ describe('basicObservable', function(){
 
 
 
+
 // case 3
 // unsubscribe
 describe('unsubscribe', function(){
@@ -91,7 +92,6 @@ describe('unsubscribe', function(){
 
 // case 4
 // interval
-
 describe('interval', function(){
   it('should pass interval', function(done) {
     const expected = [0, 1, 2, 3];

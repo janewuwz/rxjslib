@@ -73,5 +73,5 @@ setTimeout(unsubscribe, 5000)
 var observable = interval(1000);
 var subscription = observable.subscribe((x: any) => console.log(x))
 
-setTimeout(subscription.unsubscribe, 8000)
+setTimeout(subscription.unsubscribe, 5000)
 
