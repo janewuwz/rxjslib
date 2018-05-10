@@ -1,13 +1,11 @@
-import 'mocha';
-import Rx from './index';
-import { expect } from 'chai';
-import interval from './interval'
-import fromEvent from './fromEvent'
-import from from './from'
-import filter from './filter'
-import of from './of'
-import take from './take';
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+require("mocha");
+var interval_1 = __importDefault(require("./interval"));
+var take_1 = __importDefault(require("./take"));
 // case 1
 // VM496:13 got value 1
 // VM496:13 got value 2
@@ -31,10 +29,6 @@ import take from './take';
 //   complete: () => console.log('done'),
 // });
 // console.log('just after subscribe');
-
-
-
-
 // case 2
 // complete 机制
 // var observable = Rx.Observable.create(function subscribe(observer: any) {
@@ -48,56 +42,30 @@ import take from './take';
 //     observer.error(err); // 如果捕获到异常会发送一个错误
 //   }
 // });
-
 // observable.subscribe((x:any) => console.log(x));
-
-
-
 // case 3
 // unsubscribe
 // function subscribe(observer: any) {
 //   var intervalID = setInterval(() => {
 //     observer.next('hi');
 //   }, 1000);
-
 //   return function unsubscribe() {
 //     clearInterval(intervalID);
 //   };
 // }
-
 // var unsubscribe = subscribe({next: (x : any) => console.log(x)});
-
 // setTimeout(unsubscribe, 5000)
-
-
-
-
 // case 4
 // interval
-
 // var observable = interval(1000);
 // var subscription = observable.subscribe((x: any) => console.log(x))
-
 // setTimeout(subscription.unsubscribe, 4000)
-
-
-
-
-
 // case 5
 // fromEvent
-
-
-
-
 // case 6
 // from
 // var observable = from([1,2,3]);
 // observable.subscribe((val: any) => console.log(val));
-
-
-
-
 // case 7
 // filter
 // difficulty  => 链式调用
@@ -105,25 +73,13 @@ import take from './take';
 // observable.filter = filter
 // var result = observable.filter((val: number) => val !== 2);
 // result.subscribe((val:any) => console.log(val))
-
-
-
-
-
 // case 8
 // of
 // var observable = of(1,2,3)
 // observable.subscribe((val: any) => console.log(val))
-
-
-
 // case 9
 // take
-var observable = interval(500)
-observable.take = take
-var result = observable.take(4)
-result.subscribe((x: any) => console.log(x))
-
-
-
-
+var observable = interval_1.default(500);
+observable.take = take_1.default;
+var result = observable.take(4);
+result.subscribe(function (x) { return console.log(x); });
