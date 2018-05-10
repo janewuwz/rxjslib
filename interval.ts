@@ -1,6 +1,6 @@
 import Rx from './index'
 
-function interval(time: number){ 
+function interval(time: number){
   var i = 0
     return Rx.Observable.create(function subscribe(observer: any) {
     var intervalId = setInterval(() => {

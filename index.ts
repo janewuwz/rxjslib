@@ -1,4 +1,8 @@
+import interval from './interval'
+
 class Observable {
+  constructor(){}
+  [index: string]: any;
   // 如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
   static create(fn: Function) {
     var observers:any = fn
@@ -26,15 +30,19 @@ class Observable {
       }
       return internal
     }
-    return {
+    interface LooseObject {
+      [key: string]: any
+    }
+    var obj: LooseObject = {
       subscribe: function(obj: any){
         var middle = dec(obj)
         var subscription = fn(middle)
         return {
           unsubscribe: subscription && subscription.unsubscribe
         }
-      }
+      } 
     }
+    return obj
   }
 }
 
