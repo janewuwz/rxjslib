@@ -1,4 +1,4 @@
-import Rx from './index';
+import Rx from './index'
 
 function take (this: any, num: number) {
   var real = this

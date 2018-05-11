@@ -1,9 +1,9 @@
-import Rx from './index';
+import Rx from './index'
 
-function from (arr: Array<any>) {
+function of (...args: number[]) {
   return Rx.Observable.create(function subscribe(observer: any) {
-    for (var i=0;i<arr.length;i++) {
-      observer.next(arr[i])
+    for (var i=0;i<args.length;i++) {
+      observer.next(args[i])
     }
     return {
       unsubscribe: function(){
@@ -12,4 +12,4 @@ function from (arr: Array<any>) {
     }
   })
 }
-export default from
+export default of

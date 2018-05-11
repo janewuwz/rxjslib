@@ -1,4 +1,4 @@
-import Rx from './index';
+import Rx from './index'
 
 function fromEvent (target: EventTarget, event: string) {
   return Rx.Observable.create(function subscribe(observer: any) {

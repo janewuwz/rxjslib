@@ -1,7 +1,7 @@
 import 'mocha';
-import Rx from './index';
+import Rx from './src/index';
 import { expect } from 'chai';
-import interval from './interval';
+import interval from './src/interval';
 
 // case 1
 describe('basicObservable', function(){

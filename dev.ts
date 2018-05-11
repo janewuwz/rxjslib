@@ -1,12 +1,11 @@
 import 'mocha';
-import Rx from './index';
+import Rx from './src/index';
 import { expect } from 'chai';
-import interval from './interval'
-import fromEvent from './fromEvent'
-import from from './from'
-import filter from './filter'
-import of from './of'
-import take from './take';
+import interval from './src/interval'
+import fromEvent from './src/fromEvent'
+import from from './src/from'
+import of from './src/of'
+
 
 // case 1
 // VM496:13 got value 1
@@ -101,10 +100,8 @@ import take from './take';
 // case 7
 // filter
 // difficulty  => 链式调用
-// var observable = from([1,2,3])
-// observable.filter = filter
-// var result = observable.filter((val: number) => val !== 2);
-// result.subscribe((val:any) => console.log(val))
+// var observable = from([1,2,3]).filter((x: number) => x !== 2);
+// observable.subscribe((x:any) => console.log(x))
 
 
 
@@ -119,11 +116,55 @@ import take from './take';
 
 // case 9
 // take
-var observable = interval(500)
-observable.take = take
-var result = observable.take(4)
-result.subscribe((x: any) => console.log(x))
+// Rx.Observable.prototype.take = take
+// var observable = interval(500).take(4)
+// observable.subscribe((x: any) => console.log(x))
+
+
+
+// case 10
+// map
+// var observable = interval(500).take(4).map((x:number) => x*2)
+// observable.subscribe((x: number) => console.log(x))
 
 
 
 
+// case 11  ---->  concat
+// difficulty  combine observables
+// var foo  = interval(500).take(4)
+// var more = of(4,5,6,7)
+// var bar = foo.concat(more)
+// bar.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (err: any) => console.log(err),
+//   complete: () => {}
+// })
+
+
+
+
+// case 12 ------> merge
+
+// var foo = interval(500).take(4)
+// var bar = interval(300).take(5)
+// var merged = foo.merge(bar)
+// merged.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (err: any) => console.log(err),
+//   complete: () => {}
+// })
+
+
+
+
+// case 13 -----> zip
+var foo = interval(500).take(5)
+var bar = interval(400).take(4)
+var combined = foo.zip(bar, (x: number, y: number) => x+y)
+
+combined.subscribe({
+  next: (x: any) => console.log(x),
+  error: (err: any) => console.log(err),
+  complete: () => {console.log('done')}
+})
