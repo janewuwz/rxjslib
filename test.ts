@@ -1,7 +1,7 @@
 import 'mocha';
-import Rx from './index';
+import Rx from './src/index';
 import { expect } from 'chai';
-import interval from './interval'
+import interval from './src/interval';
 
 // case 1
 describe('basicObservable', function(){
@@ -91,7 +91,6 @@ describe('unsubscribe', function(){
 
 // case 4
 // interval
-
 describe('interval', function(){
   it('should pass interval', function(done) {
     const expected = [0, 1, 2, 3];
@@ -100,11 +99,11 @@ describe('interval', function(){
       next: (x: any) => expect(x).to.equal(expected.shift()),
       error: () => done('error should not be called'),
     });
-    this.timeout(4000);
+    this.timeout(3000);
     setTimeout(() => {
       subscription.unsubscribe();
       done();
-    }, 3000)
+    }, 2500)
   })
 })
 

@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc -p . --outDir test && mocha test/test.js",
-    "dev": "tsc -p . --outDir test && node test/dev.js"
+    "test": "tsc -p . --outDir dist && mocha dist/test.js",
+    "dev": "tsc -p . --outDir dist && node dist/dev.js",
+    "dom": "tsc ./fromEvent.ts -m umd --outDir dist"
   },
   "repository": {
     "type": "git",
