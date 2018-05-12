@@ -5,11 +5,9 @@ function from (arr: Array<any>) {
     for (var i=0;i<arr.length;i++) {
       observer.next(arr[i])
     }
-    return {
-      unsubscribe: function(){
-        console.log('unsubscribe')
-      }
-    }
+    return new Rx.Subscription(function unsubscribe(){
+      console.log('unsubscribe')
+    })
   })
 }
 export default from

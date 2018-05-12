@@ -10,11 +10,9 @@ function take (this: any, num: number) {
       }
       observer.next(val)
     })
-    return {
-      unsubscribe: function(){
-        console.log('unsubscribe')
-      }
-    }
+    return new Rx.Subscription(function unsubscribe(){
+      console.log('unsubscribe')
+    })
   })
 }
 export default take

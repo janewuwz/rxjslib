@@ -6,11 +6,9 @@ function merge (this: any, obs: any) {
   return Rx.Observable.create(function subscribe(observer: any) {
     real.subscribe(observer)
     obs.subscribe(observer)
-    return {
-      unsubscribe: function(){
-        console.log('unsubscribe')
-      }
-    }
+    return new Rx.Subscription(function unsubscribe(){
+      console.log('unsubscribe')
+    })
   })
 }
 export default merge

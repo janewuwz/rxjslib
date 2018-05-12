@@ -7,11 +7,10 @@ function interval(time: number){
       observer.next(i)
       i++;
     }, time);
-    return {
-      unsubscribe: function(){
-        clearInterval(intervalId)
-      }
-    }
+    // 返回一个有subscribe函数的对象，即Subscription
+    return new Rx.Subscription(function unsubscribe(){
+      clearInterval(intervalId)
+    })
   })
 }
 

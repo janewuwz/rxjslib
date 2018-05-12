@@ -9,11 +9,9 @@ function filter (this: any, func: Function) {
         observer.next(val)
       }
     })
-    return {
-      unsubscribe: function(){
-        console.log('unsubscribe')
-      }
-    }
+    return new Rx.Subscription(function unsubscribe(){
+      console.log('unsubscribe')
+    })
   })
 }
 export default filter
