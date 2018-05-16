@@ -20,6 +20,7 @@ class Subscriber {
     this.stopped = false
   }
   next (x: any) {
+    // 真正的需要执行的next函数
     if (this.stopped) return
     if (typeof this.observer === 'function') {
       this.observer(x)
@@ -28,12 +29,14 @@ class Subscriber {
     }
   }
   error(e: any) {
+    this.stopped = true
     this.observer.error(e)
     // this.unsubscribe()
   }
   complete(){
-    this.stopped = true
+    
     this.observer.complete()
+    this.stopped = true
     // this.unsubscribe()
     // 执行unsubscribe,return unsubscribe对象
   }
@@ -48,6 +51,8 @@ class Observable {
     this.merge = merge
     this.concat = concat
     this.filter = filter
+    this.map = map
+    this.concat = concat
   }
   [index: string]: any;
   // 如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
@@ -58,7 +63,8 @@ class Observable {
     }
     // 返回的对象，直接用了Observable
     // 对象要有subscribe函数,并且返回的subscription有unsubscribe
-    return new Observable(function(observer: object) {
+    return new Observable(function(observer: any) {
+
       var subscriber = new Subscriber(observer)
       var subscription = subscribe(subscriber)
       return subscription
@@ -74,6 +80,7 @@ class Subject {
 let Rx = {
   Observable,
   Subject,
+  Subscriber,
   Subscription
 }
 
