@@ -145,14 +145,14 @@ import concat from './src/concat'
 
 // case 11  ---->  concat
 // difficulty  combine observables
-var foo  = interval(500).take(4)
-var more = of(4,5,6,7)
-var bar = concat(foo, more)
-bar.subscribe({
-  next: (x: any) => console.log(x),
-  error: (err: any) => console.log(err),
-  complete: () => {console.log('done')}
-})
+// var foo  = interval(500).take(4)
+// var more = of(4,5,6,7)
+// var bar = concat(foo, more)
+// bar.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (err: any) => console.log(err),
+//   complete: () => {console.log('done')}
+// })
 
 
 // case 12 ------> merge
@@ -179,3 +179,16 @@ bar.subscribe({
 //   error: (err: any) => console.log(err),
 //   complete: () => {console.log('done')}
 // })
+
+
+
+// case 14 -----> combineLatest
+var weight = of(70, 72, 76, 79, 75);
+var height = of(1.76, 1.77, 1.78);
+var bmi = weight.combineLatest(height, (w: any, h: any) => w / (h * h));
+
+bmi.subscribe({
+  next: (x: any) => console.log('BMI is ' + x),
+  error: (x: any) => console.log(x),
+  complete: () => {console.log('done')}
+});
