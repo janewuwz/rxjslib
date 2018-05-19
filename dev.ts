@@ -68,19 +68,19 @@ Rx.Observable.merge = merge
 
 // case 3
 // unsubscribe
-function subscribe(observer: any) {
-  var intervalID = setInterval(() => {
-    observer.next('hi');
-  }, 1000);
+// function subscribe(observer: any) {
+//   var intervalID = setInterval(() => {
+//     observer.next('hi');
+//   }, 1000);
 
-  return function unsubscribe() {
-    clearInterval(intervalID);
-  };
-}
+//   return function unsubscribe() {
+//     clearInterval(intervalID);
+//   };
+// }
 
-var unsubscribe = subscribe({next: (x : any) => console.log(x)});
+// var unsubscribe = subscribe({next: (x : any) => console.log(x)});
 
-setTimeout(unsubscribe, 5000)
+// setTimeout(unsubscribe, 5000)
 
 
 
@@ -89,14 +89,14 @@ setTimeout(unsubscribe, 5000)
 // case 4
 // interval
 
-// var observable =  Rx.Observable.interval(1000);
-// var subscription = observable.subscribe({
-//   next: (x: any) => console.log(x),
-//   error: (x: any) => console.log(x),
-//   complete: () => {}
-// })
+var observable =  Rx.Observable.interval(1000);
+var subscription = observable.subscribe({
+  next: (x: any) => console.log(x),
+  error: (x: any) => console.log(x),
+  complete: () => {}
+})
 
-// setTimeout(subscription.unsubscribe, 4000)
+setTimeout(subscription.unsubscribe, 4000)
 
 // case 6
 // from
