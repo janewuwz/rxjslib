@@ -2,10 +2,16 @@ import 'mocha';
 import Rx from './src/index';
 import { expect } from 'chai';
 import interval from './src/interval'
-import fromEvent from './src/fromEvent'
 import from from './src/from'
 import of from './src/of'
 import concat from './src/concat'
+import merge from './src/merge';
+
+Rx.Observable.of = of
+Rx.Observable.interval = interval
+Rx.Observable.from = from
+Rx.Observable.concat = concat
+Rx.Observable.merge = merge
 
 // case 1
 // VM496:13 got value 1
@@ -62,19 +68,19 @@ import concat from './src/concat'
 
 // case 3
 // unsubscribe
-// function subscribe(observer: any) {
-//   var intervalID = setInterval(() => {
-//     observer.next('hi');
-//   }, 1000);
+function subscribe(observer: any) {
+  var intervalID = setInterval(() => {
+    observer.next('hi');
+  }, 1000);
 
-//   return function unsubscribe() {
-//     clearInterval(intervalID);
-//   };
-// }
+  return function unsubscribe() {
+    clearInterval(intervalID);
+  };
+}
 
-// var unsubscribe = subscribe({next: (x : any) => console.log(x)});
+var unsubscribe = subscribe({next: (x : any) => console.log(x)});
 
-// setTimeout(unsubscribe, 5000)
+setTimeout(unsubscribe, 5000)
 
 
 
@@ -82,33 +88,26 @@ import concat from './src/concat'
 
 // case 4
 // interval
-// var observable = interval(1000);
-// var subscription = observable.subscribe((x: any) => console.log(x))
+
+// var observable =  Rx.Observable.interval(1000);
+// var subscription = observable.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (x: any) => console.log(x),
+//   complete: () => {}
+// })
 
 // setTimeout(subscription.unsubscribe, 4000)
 
-
-
-
-
-// case 5
-// fromEvent
-
-
-
-
 // case 6
 // from
-// var observable = from([1,2,3]);
+// var observable = Rx.Observable.from([1,2,3]);
 // observable.subscribe((val: any) => console.log(val));
-
-
 
 
 // case 7
 // filter
 // difficulty  => 链式调用
-// var observable = from([1,2,3]).filter((x: number) => x !== 2);
+// var observable = Rx.Observable.from([1,2,3]).filter((x: number) => x !== 2);
 // observable.subscribe((x:any) => console.log(x))
 
 
@@ -117,25 +116,25 @@ import concat from './src/concat'
 
 // case 8
 // of
-// var observable = of(1,2,3)
+// var observable = Rx.Observable.of(1,2,3)
 // observable.subscribe((val: any) => console.log(val))
 
 
 
 // case 9
 // take
-// Rx.Observable.prototype.take = take
-// var observable = interval(500).take(4)
+// var observable = Rx.Observable.interval(500).take(4)
 // observable.subscribe((x: any) => console.log(x))
 
 
 
 // case 10
 // map
-// var observable = interval(500).take(4).map((x:number) => x*2)
+// var observable = Rx.Observable.interval(500).take(4).map((x:number) => x*2)
 // observable.subscribe({
 //   next: (x: number) => console.log(x),
 //   error: (err: any) => console.log(err),
+//   // TODO done
 //   complete: () => {console.log('done')}
 // })
 
@@ -145,9 +144,10 @@ import concat from './src/concat'
 
 // case 11  ---->  concat
 // difficulty  combine observables
-// var foo  = interval(500).take(4)
-// var more = of(4,5,6,7)
-// var bar = concat(foo, more)
+
+// var foo  = Rx.Observable.interval(500).take(4)
+// var more = Rx.Observable.of(4,5,6,7)
+// var bar = Rx.Observable.concat(foo, more)
 // bar.subscribe({
 //   next: (x: any) => console.log(x),
 //   error: (err: any) => console.log(err),
@@ -156,10 +156,10 @@ import concat from './src/concat'
 
 
 // case 12 ------> merge
-
-// var foo = interval(500).take(4)
-// var bar = interval(300).take(5)
-// var merged = foo.merge(bar)
+//TODO 少一个数字
+// var foo = Rx.Observable.interval(500).take(4)
+// var bar = Rx.Observable.interval(300).take(5)
+// var merged = Rx.Observable.merge(foo, bar)
 // merged.subscribe({
 //   next: (x: any) => console.log(x),
 //   error: (err: any) => console.log(err),
@@ -170,10 +170,10 @@ import concat from './src/concat'
 
 
 // case 13 -----> zip
-// var foo = interval(500).take(5)
-// var bar = interval(400).take(4)
+// var foo = Rx.Observable.interval(500).take(5)
+// var bar = Rx.Observable.interval(400).take(4)
 // var combined = foo.zip(bar, (x: number, y: number) => x+y)
-
+// // TODO done 没执行
 // combined.subscribe({
 //   next: (x: any) => console.log(x),
 //   error: (err: any) => console.log(err),
@@ -183,8 +183,8 @@ import concat from './src/concat'
 
 
 // case 14 -----> combineLatest
-// var weight = of(70, 72, 76, 79, 75);
-// var height = of(1.76, 1.77, 1.78);
+// var weight = Rx.Observable.of(70, 72, 76, 79, 75);
+// var height = Rx.Observable.of(1.76, 1.77, 1.78);
 // var bmi = weight.combineLatest(height, (w: any, h: any) => w / (h * h));
 
 // bmi.subscribe({
@@ -196,8 +196,8 @@ import concat from './src/concat'
 
 // case 15 -----> scan
 //TODO zip有bug！！
-// var foo = of('h', 'e', 'l', 'l', 'o')
-// var bar = interval(500).take(6)
+// var foo = Rx.Observable.of('h', 'e', 'l', 'l', 'o')
+// var bar = Rx.Observable.interval(500).take(6)
 // var combined = foo.zip(bar, (x: any, y: any) => x).scan((acc: any, cur: any) => acc+cur, '')
 // combined.subscribe({
 //   next: (x: any) => console.log(x),
