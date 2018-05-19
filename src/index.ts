@@ -5,6 +5,7 @@ import map from './map'
 import concat from './concat'
 import merge from './merge'
 import zip from './zip'
+import scan from './scan'
 import combineLatest from './combineLatest'
 
 class Subscription {
@@ -55,6 +56,7 @@ class Observable {
     this.map = map
     this.concat = concat
     this.combineLatest = combineLatest
+    this.scan = scan
   }
   [index: string]: any;
   // 如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”

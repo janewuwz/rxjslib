@@ -183,12 +183,24 @@ import concat from './src/concat'
 
 
 // case 14 -----> combineLatest
-var weight = of(70, 72, 76, 79, 75);
-var height = of(1.76, 1.77, 1.78);
-var bmi = weight.combineLatest(height, (w: any, h: any) => w / (h * h));
+// var weight = of(70, 72, 76, 79, 75);
+// var height = of(1.76, 1.77, 1.78);
+// var bmi = weight.combineLatest(height, (w: any, h: any) => w / (h * h));
 
-bmi.subscribe({
-  next: (x: any) => console.log('BMI is ' + x),
-  error: (x: any) => console.log(x),
-  complete: () => {console.log('done')}
-});
+// bmi.subscribe({
+//   next: (x: any) => console.log('BMI is ' + x),
+//   error: (x: any) => console.log(x),
+//   complete: () => {console.log('done')}
+// });
+
+
+// case 15 -----> scan
+//TODO zip有bug！！
+// var foo = of('h', 'e', 'l', 'l', 'o')
+// var bar = interval(500).take(6)
+// var combined = foo.zip(bar, (x: any, y: any) => x).scan((acc: any, cur: any) => acc+cur, '')
+// combined.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (x: any) => console.log(x),
+//   complete: () => {}
+// })

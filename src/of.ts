@@ -1,6 +1,6 @@
 import Rx from './index'
 
-function of (...args: number[]) {
+function of (...args: any[]) {
   return Rx.Observable.create(function subscribe(observer: any) {
     try {
       for (var i=0;i<args.length;i++) {
