@@ -89,14 +89,14 @@ Rx.Observable.merge = merge
 // case 4
 // interval
 
-var observable =  Rx.Observable.interval(1000);
-var subscription = observable.subscribe({
-  next: (x: any) => console.log(x),
-  error: (x: any) => console.log(x),
-  complete: () => {}
-})
+// var observable =  Rx.Observable.interval(1000);
+// var subscription = observable.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (x: any) => console.log(x),
+//   complete: () => {}
+// })
 
-setTimeout(subscription.unsubscribe, 4000)
+// setTimeout(subscription.unsubscribe, 4000)
 
 // case 6
 // from
@@ -130,13 +130,13 @@ setTimeout(subscription.unsubscribe, 4000)
 
 // case 10
 // map
-// var observable = Rx.Observable.interval(500).take(4).map((x:number) => x*2)
-// observable.subscribe({
-//   next: (x: number) => console.log(x),
-//   error: (err: any) => console.log(err),
-//   // TODO done
-//   complete: () => {console.log('done')}
-// })
+var observable = Rx.Observable.interval(500).take(4).map((x:number) => x*2)
+observable.subscribe({
+  next: (x: number) => console.log(x),
+  error: (err: any) => console.log(err),
+  // TODO done
+  complete: () => console.log('done')
+})
 
 
 

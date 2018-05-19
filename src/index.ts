@@ -44,7 +44,7 @@ class Subscriber {
     if (typeof this.observer === 'function') {
       this.observer.complete = function(){}
       return
-    }    
+    }
     this.observer.complete()
     // this.unsubscribe()
     // 执行unsubscribe,return unsubscribe对象

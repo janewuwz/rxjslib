@@ -15,7 +15,9 @@ function take (this: any, num: number) {
           observer.next(val)
         },
         error: (err: any) => observer.error(),
-        complete: () => observer.complete()
+        complete: () => {
+          observer.complete()
+        }
       })    
     } catch (error) {
       observer.error(error)
