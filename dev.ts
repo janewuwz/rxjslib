@@ -130,13 +130,13 @@ Rx.Observable.merge = merge
 
 // case 10
 // map
-var observable = Rx.Observable.interval(500).take(4).map((x:number) => x*2)
-observable.subscribe({
-  next: (x: number) => console.log(x),
-  error: (err: any) => console.log(err),
-  // TODO done
-  complete: () => console.log('done')
-})
+// var observable = Rx.Observable.interval(500).take(4).map((x:number) => x*2)
+// observable.subscribe({
+//   next: (x: number) => console.log(x),
+//   error: (err: any) => console.log(err),
+//   // TODO done
+//   complete: () => console.log('done')
+// })
 
 
 
@@ -170,15 +170,16 @@ observable.subscribe({
 
 
 // case 13 -----> zip
-// var foo = Rx.Observable.interval(500).take(5)
-// var bar = Rx.Observable.interval(400).take(4)
-// var combined = foo.zip(bar, (x: number, y: number) => x+y)
-// // TODO done 没执行
-// combined.subscribe({
-//   next: (x: any) => console.log(x),
-//   error: (err: any) => console.log(err),
-//   complete: () => {console.log('done')}
-// })
+// 0 2 4 6 done
+var foo = Rx.Observable.interval(500).take(5)
+var bar = Rx.Observable.interval(400).take(4)
+var combined = foo.zip(bar, (x: number, y: number) => x+y)
+// TODO done 没执行
+combined.subscribe({
+  next: (x: any) => console.log(x),
+  error: (err: any) => console.log(err),
+  complete: () => {console.log('done')}
+})
 
 
 
