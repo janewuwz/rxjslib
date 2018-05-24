@@ -7,6 +7,8 @@ import merge from './merge'
 import zip from './zip'
 import scan from './scan'
 import combineLatest from './combineLatest'
+import from from './from'
+import of from './of'
 
 class Subscription {
   [index: string]: any;
@@ -51,9 +53,6 @@ class Subscriber {
   }
 }
 
-interface A{}
-
-
 class Observable {
   static interval : any;
   static zip : any;
@@ -92,19 +91,46 @@ class Observable {
       // 如何保证subscription一定有unsubscribe ????
     })
   }
-
 }
 
 
-class Subject {
-  subscribe(){}
+class Subject extends Observable {
+  constructor(){
+    super(function subscribe (this: any, observer: any) {
+      this.observers.push(observer)
+      return new Subscription(() => {
+        const index = this.observers.indexOf(observer)
+        if (index >= 0) {
+          this.observers.splice(index, 1)
+        }
+      })
+    })
+    this.observers = []
+  }
+
+  next (x: any) {
+    this.observers.forEach((observer: any) => observer.next(x))
+  }
+
+  error(e: any) {
+    this.observers.forEach((observer: any) => observer.error(e))
+  }
+
+  complete(){
+    this.observers.forEach((observer: any) => observer.complete())
+  }
 }
 
 let Rx = {
   Observable,
   Subject,
-  Subscriber,
   Subscription
 }
+
+Rx.Observable.of = of
+Rx.Observable.interval = interval
+Rx.Observable.from = from
+Rx.Observable.concat = concat
+Rx.Observable.merge = merge
 
 export default Rx

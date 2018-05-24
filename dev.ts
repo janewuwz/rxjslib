@@ -7,12 +7,6 @@ import of from './src/of'
 import concat from './src/concat'
 import merge from './src/merge';
 
-Rx.Observable.of = of
-Rx.Observable.interval = interval
-Rx.Observable.from = from
-Rx.Observable.concat = concat
-Rx.Observable.merge = merge
-
 // case 1
 // VM496:13 got value 1
 // VM496:13 got value 2
@@ -171,15 +165,15 @@ Rx.Observable.merge = merge
 
 // case 13 -----> zip
 // 0 2 4 6 done
-var foo = Rx.Observable.interval(500).take(5)
-var bar = Rx.Observable.interval(400).take(4)
-var combined = foo.zip(bar, (x: number, y: number) => x+y)
-// TODO done 没执行
-combined.subscribe({
-  next: (x: any) => console.log(x),
-  error: (err: any) => console.log(err),
-  complete: () => {console.log('done')}
-})
+// var foo = Rx.Observable.interval(500).take(5)
+// var bar = Rx.Observable.interval(400).take(4)
+// var combined = foo.zip(bar, (x: number, y: number) => x+y)
+// // TODO done 没执行
+// combined.subscribe({
+//   next: (x: any) => console.log(x),
+//   error: (err: any) => console.log(err),
+//   complete: () => {console.log('done')}
+// })
 
 
 
@@ -205,3 +199,16 @@ combined.subscribe({
 //   error: (x: any) => console.log(x),
 //   complete: () => {}
 // })
+
+
+var subject = new Rx.Subject()
+subject.subscribe({
+  next: (v: any) => console.log('observerA: ' + v)
+});
+subject.subscribe({
+  next: (v: any) => console.log('observerB: ' + v)
+});
+
+var observable = Rx.Observable.from([1, 2, 3]);
+
+observable.subscribe(subject);
