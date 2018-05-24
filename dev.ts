@@ -201,14 +201,32 @@ import merge from './src/merge';
 // })
 
 
-var subject = new Rx.Subject()
-subject.subscribe({
+
+// subject
+// var subject = new Rx.Subject()
+// subject.subscribe({
+//   next: (v: any) => console.log('observerA: ' + v)
+// });
+// subject.subscribe({
+//   next: (v: any) => console.log('observerB: ' + v)
+// });
+
+// var observable = Rx.Observable.from([1, 2, 3]);
+
+// observable.subscribe(subject);
+
+
+
+var source = Rx.Observable.from([1, 2, 3]);
+var subject = new Rx.Subject();
+var multicasted = source.multicast(subject);
+
+// 在底层使用了 `subject.subscribe({...})`:
+multicasted.subscribe({
   next: (v: any) => console.log('observerA: ' + v)
 });
-subject.subscribe({
+multicasted.subscribe({
   next: (v: any) => console.log('observerB: ' + v)
 });
-
-var observable = Rx.Observable.from([1, 2, 3]);
-
-observable.subscribe(subject);
+// 在底层使用了 `source.subscribe(subject)`:
+multicasted.connect();
