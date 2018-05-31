@@ -13,14 +13,15 @@ import multicast from './multicast'
 
 class Subscription {
   [index: string]: any;
-  constructor(unsubscribe: Function){
+  constructor(unsubscribe?: Function){
     this.unsubscribe = unsubscribe
   }
 }
 
-class Subscriber {
+class Subscriber extends Subscription {
   [index: string]: any;
   constructor(observer: object) {
+    super()
     this.observer = observer
     this.stopped = false
   }
@@ -40,7 +41,7 @@ class Subscriber {
       return
     }
     this.observer.error(e)
-    // this.unsubscribe()
+    this.unsubscribe && this.unsubscribe() // 不优雅
   }
   complete(){
     this.stopped = true
@@ -49,7 +50,7 @@ class Subscriber {
       return
     }
     this.observer.complete()
-    // this.unsubscribe()
+    this.unsubscribe && this.unsubscribe() // 不优雅
     // 执行unsubscribe,return unsubscribe对象
   }
 }
@@ -89,6 +90,7 @@ class Observable {
 
       var subscriber = new Subscriber(observer)
       var subscription = subscribe(subscriber)
+      subscriber.unsubscribe = subscription && subscription.unsubscribe.bind(subscription)
       return subscription
       // 如何保证subscription一定有unsubscribe ????
     })

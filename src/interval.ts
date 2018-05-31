@@ -15,7 +15,6 @@ function interval(time: number){
     // 返回一个有subscribe函数的对象，即Subscription
     return new Rx.Subscription(function unsubscribe(){
       clearInterval(intervalId)
-      observer.complete()
     })
   })
 }
