@@ -96,30 +96,6 @@ describe('Observable', function(){
 })
 
 
-// describe('combineLatest', function() {
-//   it('should work with from observable and interval observable', function(done) {
-//     const expected = ['b0', 'b1', 'b2', 'b3', 'b4'];
-
-//     const a$ = Rx.Observable.from(['a', 'b']);
-//     const b$ = Rx.Observable.interval(100);
-
-//     const subscription = a$.combineLatest(b$, (a: any, b: any) => a+b)
-//       .subscribe({
-//         next: (x: any) => expect(x).to.equal(expected.shift()),
-//         error: () => done('error should not be called'),
-//         complete: () => {},
-//       });
-
-//     setTimeout(function () {
-//       subscription.unsubscribe();
-//       expect(expected.length).to.equal(0);
-//       done();
-//     }, 550);
-//   });
-// });
-
-
-
 describe('Interval', function(){
   it('should pass basic interval case', function(done) {
     const expected = [0, 1, 2, 3, 4];
@@ -185,6 +161,31 @@ describe('Merge', function() {
     setTimeout(function () {
       subscription.unsubscribe();
       expect(expected.length).to.equal(0)
+      done();
+    }, 550);
+  });
+});
+
+
+describe('combineLatest', function() {
+  it('should work with from observable and interval observable', function(done) {
+    const expected = ['b0', 'b1', 'b2', 'b3', 'b4'];
+
+    const a$ = Rx.Observable.from(['a', 'b']);
+    const b$ = Rx.Observable.interval(100);
+
+    const subscription = a$.combineLatest(b$, (a: any, b: any) => a+b)
+      .subscribe({
+        next: (x: any) => {
+          expect(x).to.equal(expected.shift())
+        },
+        error: () => done('error should not be called'),
+        complete: () => {},
+      });
+
+    setTimeout(function () {
+      subscription.unsubscribe();
+      expect(expected.length).to.equal(0);
       done();
     }, 550);
   });

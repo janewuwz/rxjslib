@@ -9,7 +9,7 @@ function combineLatest (this: any, obs: any, func: any) {
   return Rx.Observable.create(function subscribe(observer: any) {
     obs.subscribe({
       next: (x: any) => {
-        real.subscribe({
+        var subscription = real.subscribe({
           next: (y: any) => {
             temp.push(y) 
           },
