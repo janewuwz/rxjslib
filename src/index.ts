@@ -134,5 +134,6 @@ Rx.Observable.interval = interval
 Rx.Observable.from = from
 Rx.Observable.concat = concat
 Rx.Observable.merge = merge
+Rx.Observable.combineLatest = combineLatest
 
 export default Rx
