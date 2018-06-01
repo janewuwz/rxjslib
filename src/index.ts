@@ -10,6 +10,7 @@ import combineLatest from './combineLatest'
 import from from './from'
 import of from './of'
 import multicast from './multicast'
+import switchMap from './switchMap'
 
 class Subscription {
   [index: string]: any;
@@ -72,6 +73,7 @@ class Observable {
     this.scan = scan
     this.combineLatest = combineLatest
     this.multicast = multicast
+    this.switchMap = switchMap
     interval.bind(this)
     zip.bind(this)
     concat.bind(this)
