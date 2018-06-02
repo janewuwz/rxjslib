@@ -92,7 +92,7 @@ class Observable {
 
       var subscriber = new Subscriber(observer)
       var subscription = subscribe(subscriber)
-      subscriber.unsubscribe = subscription && subscription.unsubscribe.bind(subscription)
+      subscriber.unsubscribe = subscription && subscription.unsubscribe.bind(subscription) //？？？？
       return subscription
       // 如何保证subscription一定有unsubscribe ????
     })
@@ -104,6 +104,7 @@ class Subject extends Observable {
   constructor(){
     super(function subscribe (this: any, observer: any) {
       this.observers.push(observer)
+      // ???????
       return new Subscription(() => {
         const index = this.observers.indexOf(observer)
         if (index >= 0) {

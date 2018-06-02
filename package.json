@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "observable": "tsc -p . --outDir dist && mocha dist/src/__test__/observable.js",
-    "interval": "tsc -p . --outDir dist && mocha dist/src/__test__/interval.js",
-    "combineLatest": "tsc -p . --outDir dist && mocha dist/src/__test__/combineLatest.js",
-    "merge": "tsc -p . --outDir dist && mocha dist/src/__test__/merge.js",
-    "subject": "tsc -p . --outDir dist && mocha dist/src/__test__/subject.js",
-    "switchMap": "tsc -p . --outDir dist && mocha dist/src/__test__/switchMap.js",
+    "observable": "tsc -p . --outDir dist && mocha dist/src/__test__/observable-test.js",
+    "interval": "tsc -p . --outDir dist && mocha dist/src/__test__/interval-test.js",
+    "combineLatest": "tsc -p . --outDir dist && mocha dist/src/__test__/combineLatest-test.js",
+    "merge": "tsc -p . --outDir dist && mocha dist/src/__test__/merge-test.js",
+    "subject": "tsc -p . --outDir dist && mocha dist/src/__test__/subject-test.js",
+    "switchMap": "tsc -p . --outDir dist && mocha dist/src/__test__/switchMap-test.js",
     "build": "tsc -p . --outDir dist",
-    "dom": "tsc ./fromEvent.ts -m umd --outDir dist"
+    "dom": "tsc ./fromEvent-test.ts -m umd --outDir dist"
   },
   "repository": {
     "type": "git",
