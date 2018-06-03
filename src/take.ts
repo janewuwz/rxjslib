@@ -1,22 +1,22 @@
 import Rx from './index'
 
 function take (this: any, num: number) {
-  var real = this
+  var lastObservable = this
   return Rx.Observable.create(function subscribe(observer: any) {
-
-    try {
-      var subscription = real.subscribe((val: any) => {
-        if (val === num - 1) {
-          observer.next(val)
-          subscription.unsubscribe()
+    let count = 0
+    return lastObservable.subscribe({
+      next: (x: any) => {
+        count += 1
+        if (count === num - 1) {
+          observer.next(x)
           observer.complete()
-        } else if (val < num) {
-          observer.next(val)
+        } else if (count < num) {
+          observer.next(x)
         }
-      },)   
-    } catch (error) {
-      observer.error(error)
-    }
+      },
+      error: (e: any) => observer.error(e),
+      complete: () => observer.complete()
+    }) 
   })
 }
 export default take

@@ -1,13 +1,17 @@
 import Rx from './index'
 
 function merge (this: any, obs: any, two: any) {
-  // obs: bar;   real: foo     foo.merge(bar)
-  // ⚠️ 这里是如何得到上一个operator的结果
+  var subscriptions: any = []
+  var allObservables = Array.prototype.slice.call(arguments)
   return Rx.Observable.create(function subscribe(observer: any) {
-    obs.subscribe(observer)
-    two.subscribe(observer)
+    allObservables.forEach((observable: any) => {
+      var subscription = observable.subscribe(observer)
+      subscriptions.push(subscription)
+    });
     return new Rx.Subscription(function unsubscribe(){
-      console.log('unsubscribe')
+      subscriptions.forEach((subscription: any) => {
+        subscription.unsubscribe()
+      });
     })
   })
 }

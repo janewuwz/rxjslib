@@ -1,33 +1,30 @@
 import Rx from './index';
 
-function combineLatest (this: any, real: any, func: any) {
-  var obs = this //real:interval    obs:from
-  let active = 0
-  var temp: any = []
-  var f = 0
-  let subscription: any
+function combineLatest (this: any, curObservable: any, combineFunc: any) {
+  var lastObservable = this
+  var tempValues: any = []
+  var lastValue: any
+  var subscription: any
   return Rx.Observable.create(function subscribe(observer: any) {
-    obs.subscribe({
+    lastObservable.subscribe({
       next: (x: any) => {
-        temp.push(x)
-        subscription = real.subscribe({
+        tempValues.push(x)
+      },
+      error: (e: any) => observer.error(e),
+      complete: () => {
+        subscription = curObservable.subscribe({
           next: (y: any) => {
-            f=temp[temp.length-1]
-            observer.next(func(f, y))
+            lastValue=tempValues[tempValues.length-1]
+            observer.next(combineFunc(lastValue, y))
           },
-          error: (y: any) => observer.error(y),
+          error: (e: any) => observer.error(e),
           complete: () => {
             observer.complete()
           }
         })
-      },
-      error: (x: any) => observer.error(x),
-      complete: () => {
-        subscription.unsubscribe()
       }
     })
-    return new Rx.Subscription(function unsubscribe(){
-    })
+    return subscription
   })
 }
 export default combineLatest

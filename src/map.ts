@@ -1,25 +1,22 @@
 import Rx from './index'
 
-function map (this: any, func: Function) {
-  var real = this
+function map (this: any, mapFunc: Function) {
+  var lastObservable = this
   return Rx.Observable.create(function subscribe(observer: any) {
-    // observer是index中的observer
-    real.subscribe({
-      next: (val: any) => {
-        var newval = func(val)
+    return lastObservable.subscribe({
+      next: (x: any) => {
         try {
-          observer.next(newval)
+          var newval = mapFunc(x)
         } catch (error) {
-          error(error)
+          observer.error(error)
+          return
         }
+        observer.next(newval)
       },
-      error: (x: any) => observer.error(x),
+      error: (e: any) => observer.error(e),
       complete: () => {
         observer.complete()        
       }
-    })
-    return new Rx.Subscription(function unsubscribe(){
-      console.log('unsubscribe')
     })
   })
 }

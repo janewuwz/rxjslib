@@ -6,6 +6,7 @@ function from (arr: Array<any>) {
       observer.next(arr[i])
     }
     observer.complete()
+    return new Rx.Subscription(function unsubscribe(){})
   })
 }
 export default from
