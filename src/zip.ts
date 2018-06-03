@@ -4,12 +4,11 @@ function zip (this: any, bar: any, exec: Function) {
   var foo = this
   var temp: any= []
   var temp2: any = []
-  var flag: any = undefined
   // 1快 2慢  为true
   // bar  0 1 2 3 
   // foo 01234
   return Rx.Observable.create(function subscribe(observer: any) {
-    foo.subscribe({
+    return foo.subscribe({
       next: (val: any) => {
         temp.push(val)
         bar.subscribe({
@@ -23,18 +22,13 @@ function zip (this: any, bar: any, exec: Function) {
             var value = exec(prev, a)
             observer.next(value)
           },
-          error: (x: any) => observer.error(x),
+          error: (e: any) => observer.error(e),
           complete: () => observer.complete()
         })
       },
       error: (x: any) => observer.error(x),
       complete: () => observer.complete()
     })
-    return {
-      unsubscribe: function(){
-        console.log('unsubscribe')
-      }
-    }
   })
 }
 export default zip

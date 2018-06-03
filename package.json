@@ -11,6 +11,8 @@
     "subject": "tsc -p . --outDir dist && mocha dist/src/__test__/subject-test.js",
     "switchMap": "tsc -p . --outDir dist && mocha dist/src/__test__/switchMap-test.js",
     "filter": "tsc -p . --outDir dist && mocha dist/src/__test__/filter-test.js",
+    "concat": "tsc -p . --outDir dist && mocha dist/src/__test__/concat-test.js",
+    "zip": "tsc -p . --outDir dist && mocha dist/src/__test__/zip-test.js",
     "build": "tsc -p . --outDir dist",
     "dom": "tsc ./fromEvent-test.ts -m umd --outDir dist"
   },
