@@ -6,16 +6,18 @@ function take (this: any, num: number) {
     let count = 0
     return lastObservable.subscribe({
       next: (x: any) => {
-        count += 1
         if (count === num - 1) {
           observer.next(x)
           observer.complete()
-        } else if (count < num) {
+        } else if (count < num - 1) {
           observer.next(x)
         }
+        count += 1
       },
       error: (e: any) => observer.error(e),
-      complete: () => observer.complete()
+      complete: () => {
+        observer.complete()
+      }
     }) 
   })
 }

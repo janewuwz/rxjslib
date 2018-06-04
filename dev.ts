@@ -6,6 +6,7 @@ import from from './src/from'
 import of from './src/of'
 import concat from './src/concat'
 import merge from './src/merge';
+import take from './src/take';
 
 // case 1
 // VM496:13 got value 1
@@ -117,8 +118,12 @@ import merge from './src/merge';
 
 // case 9
 // take
-// var observable = Rx.Observable.interval(500).take(4)
-// observable.subscribe((x: any) => console.log(x))
+var observable = Rx.Observable.interval(500).take(4)
+observable.subscribe({
+  next: (x: any) => console.log(x),
+  error: (e: any) => {},
+  complete: () => {}
+})
 
 
 
@@ -217,16 +222,16 @@ import merge from './src/merge';
 
 
 
-var source = Rx.Observable.from([1, 2, 3]);
-var subject = new Rx.Subject();
-var multicasted = source.multicast(subject);
+// var source = Rx.Observable.from([1, 2, 3]);
+// var subject = new Rx.Subject();
+// var multicasted = source.multicast(subject);
 
-// 在底层使用了 `subject.subscribe({...})`:
-multicasted.subscribe({
-  next: (v: any) => console.log('observerA: ' + v)
-});
-multicasted.subscribe({
-  next: (v: any) => console.log('observerB: ' + v)
-});
-// 在底层使用了 `source.subscribe(subject)`:
-multicasted.connect();
+// // 在底层使用了 `subject.subscribe({...})`:
+// multicasted.subscribe({
+//   next: (v: any) => console.log('observerA: ' + v)
+// });
+// multicasted.subscribe({
+//   next: (v: any) => console.log('observerB: ' + v)
+// });
+// // 在底层使用了 `source.subscribe(subject)`:
+// multicasted.connect();

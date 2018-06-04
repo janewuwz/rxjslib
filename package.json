@@ -13,8 +13,9 @@
     "filter": "tsc -p . --outDir dist && mocha dist/src/__test__/filter-test.js",
     "concat": "tsc -p . --outDir dist && mocha dist/src/__test__/concat-test.js",
     "zip": "tsc -p . --outDir dist && mocha dist/src/__test__/zip-test.js",
+    "mergeMap": "tsc -p . --outDir dist && mocha dist/src/__test__/mergeMap-test.js",
     "build": "tsc -p . --outDir dist",
-    "dom": "tsc ./fromEvent-test.ts -m umd --outDir dist"
+    "dev": "tsc -p . --outDir dist && node dist/dev.js"
   },
   "repository": {
     "type": "git",

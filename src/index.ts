@@ -11,6 +11,7 @@ import from from './from'
 import of from './of'
 import multicast from './multicast'
 import switchMap from './switchMap'
+import mergeMap from './mergeMap'
 
 class Subscription {
   [index: string]: any;
@@ -69,6 +70,7 @@ class Observable {
     this.filter = filter
     this.take = take
     this.map = map
+    this.mergeMap = mergeMap
     this.zip = zip
     this.scan = scan
     this.combineLatest = combineLatest
