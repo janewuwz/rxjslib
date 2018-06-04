@@ -1,24 +1,20 @@
 import Rx from './index'
 
-function scan (this: any, func: Function, init: any) {
-  var real = this
-  var temp: any = []
+function scan (this: any, init: any, scanFn: Function) {
+  var lastObservable = this
+  let accu: any = undefined
   return Rx.Observable.create(function subscribe(observer: any) {
-    real.subscribe({
+    let val
+    return lastObservable.subscribe({
       next: (x: any) => {
-        temp.push(x)
-        if (temp.length > 0) {
-          observer.next(temp.join(''))
-        } else {
-          observer.next(x)
-        }
-        
+        val = accu === undefined ? scanFn(x, init) : scanFn(x, accu)
+        observer.next(val)
+        accu = val
       },
-      error: (x: any) => observer.error(x),
-      complete: () => observer.complete()
-    })
-    return new Rx.Subscription(function unsubscribe(){
-      console.log('unsubscribe')
+      error: (e: any) => observer.error(e),
+      complete: () => {
+        observer.complete()
+      }
     })
   })
 }
