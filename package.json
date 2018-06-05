@@ -15,6 +15,7 @@
     "zip": "tsc -p . --outDir dist && mocha dist/src/__test__/zip-test.js",
     "mergeMap": "tsc -p . --outDir dist && mocha dist/src/__test__/mergeMap-test.js",
     "scan": "tsc -p . --outDir dist && mocha dist/src/__test__/scan-test.js",
+    "multicast": "tsc -p . --outDir dist && mocha dist/src/__test__/multicast-test.js",
     "build": "tsc -p . --outDir dist",
     "dev": "tsc -p . --outDir dist && node dist/dev.js"
   },
