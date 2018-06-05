@@ -73,7 +73,7 @@ describe('Observable', function(){
         observer.next(i);
         i+=1;
         if (i===3) {
-          observer.error(new Error(':('));
+          observer.error(new Error(':^_^:'));
         }
       }, 30);
       return new Rx.Subscription(function unsubscribe(){
@@ -83,7 +83,7 @@ describe('Observable', function(){
     .subscribe({
       next: (x: any) => expect(x).to.equal(expectedConsumer.shift()),
       error: (e: any) => {
-        expect(e.message).to.equal(':(');
+        expect(e.message).to.equal(':^_^:');
         expect(expectedProducer.length).to.equal(0);
         expect(expectedConsumer.length).to.equal(0);
         setTimeout(() => {

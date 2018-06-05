@@ -76,11 +76,6 @@ class Observable {
     this.combineLatest = combineLatest
     this.multicast = multicast
     this.switchMap = switchMap
-    interval.bind(this)
-    zip.bind(this)
-    concat.bind(this)
-    merge.bind(this)
-    combineLatest.bind(this)
   }
 
   [index: string]: any;

@@ -5,7 +5,7 @@ function mergeMap (this: any, fn: any) {
   let count = 0
   return Rx.Observable.create(function subscribe(observer: any) {
     count++ 
-    lastObservable.subscribe({
+    return lastObservable.subscribe({
       next: (x: any) => {
         var fnObservable = fn(x)
         count += 1
