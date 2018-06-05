@@ -1,6 +1,6 @@
 import Rx from './index'
 
-function filter (this: any, filterFunc: Function) {
+export default function filter (this: any, filterFunc: Function) {
   var lasObservable = this
   return Rx.Observable.create(function subscribe(observer: any) {
     return lasObservable.subscribe({
@@ -21,4 +21,3 @@ function filter (this: any, filterFunc: Function) {
     })
   })
 }
-export default filter

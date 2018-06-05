@@ -1,12 +1,12 @@
 import Rx from './index'
 
-function map (this: any, mapFunc: Function) {
+function map (this: any, mapFn: Function) {
   var lastObservable = this
   return Rx.Observable.create(function subscribe(observer: any) {
     return lastObservable.subscribe({
       next: (x: any) => {
         try {
-          var newval = mapFunc(x)
+          var newval = mapFn(x)
         } catch (error) {
           observer.error(error)
           return

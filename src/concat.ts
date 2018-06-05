@@ -1,6 +1,6 @@
 import Rx from './index';
 
-function concat (this: any, one: any, other: any) {
+export default function concat (this: any, one: any, other: any) {
   return Rx.Observable.create(function subscribe(observer: any) {
     return one.subscribe({
       next: (x: any) => {
@@ -21,4 +21,3 @@ function concat (this: any, one: any, other: any) {
     })
   })
 }
-export default concat

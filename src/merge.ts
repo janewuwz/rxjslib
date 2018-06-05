@@ -1,6 +1,6 @@
 import Rx from './index'
 
-function merge (this: any, obs: any, two: any) {
+function merge (this: any) {
   var subscriptions: any = []
   var allObservables = Array.prototype.slice.call(arguments)
   return Rx.Observable.create(function subscribe(observer: any) {

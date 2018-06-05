@@ -1,10 +1,10 @@
 import Rx from './index';
 
-function combineLatest (this: any, curObservable: any, combineFunc: any) {
-  var lastObservable = this
-  var tempValues: any = []
-  var lastValue: any
-  var subscription: any
+function combineLatest (this: any, curObservable: any, combineFn: any) {
+  const lastObservable = this
+  const tempValues: any = []
+  let lastValue: any
+  let subscription: any
   return Rx.Observable.create(function subscribe(observer: any) {
     lastObservable.subscribe({
       next: (x: any) => {
@@ -15,7 +15,7 @@ function combineLatest (this: any, curObservable: any, combineFunc: any) {
         subscription = curObservable.subscribe({
           next: (y: any) => {
             lastValue=tempValues[tempValues.length-1]
-            observer.next(combineFunc(lastValue, y))
+            observer.next(combineFn(lastValue, y))
           },
           error: (e: any) => observer.error(e),
           complete: () => {

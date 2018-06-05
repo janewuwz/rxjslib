@@ -6,8 +6,7 @@ function interval(time: number){
       var intervalId = setInterval(() => {
         observer.next(i)
         i++;
-      }, time);  
-    // 返回一个有subscribe函数的对象，即Subscription
+      }, time);
     return new Rx.Subscription(function unsubscribe(){
       clearInterval(intervalId)
     })

@@ -4,7 +4,6 @@ function fromEvent (target: EventTarget, event: string) {
   return Rx.Observable.create(function subscribe(observer: any) {
     target.addEventListener(event, observer.next)
     return new Rx.Subscription(function unsubscribe(){
-      console.log('unsubscribe')
       target.removeEventListener(event, observer.next)
     })
   })
